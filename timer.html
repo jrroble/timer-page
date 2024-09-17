@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timer Page</title>
+    <script>
+        let timeLeft = 300; // Time in seconds (5 minutes)
+        function updateTimer() {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+            if (timeLeft <= 0) {
+                clearInterval(timerId);
+                window.location.href = "https://www.surveymonkey.com/r/DQBHZKY"; // Replace with your SurveySparrow survey URL
+            }
+            timeLeft -= 1;
+        }
+        let timerId = setInterval(updateTimer, 1000);
+    </script>
+</head>
+<body>
+    <h1>Time Remaining</h1>
+    <div id="timer">5m 0s</div>
+</body>
+</html>
