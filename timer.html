@@ -4,21 +4,43 @@
     <title>Timer Page</title>
     <script>
         let timeLeft = 300; // Time in seconds (5 minutes)
+        let timerId;
+        let surveyUrl = "YOUR_SURVEY_MONKEY_URL"; // Replace with your SurveyMonkey URL
+
+        function startTimer() {
+            timeLeft = 300; // Reset time to 5 minutes
+            updateTimer();
+            timerId = setInterval(updateTimer, 1000); // Update every second
+        }
+
         function updateTimer() {
             let minutes = Math.floor(timeLeft / 60);
             let seconds = timeLeft % 60;
             document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
             if (timeLeft <= 0) {
                 clearInterval(timerId);
-                window.location.href = "https://www.surveymonkey.com/r/DQBHZKY"; // Replace with your SurveySparrow survey URL
+                document.getElementById("surveyPrompt").style.display = "block";
             }
             timeLeft -= 1;
         }
-        let timerId = setInterval(updateTimer, 1000);
+
+        function openSurvey() {
+            window.open(surveyUrl, "_blank"); // Open survey in a new tab
+            document.getElementById("surveyPrompt").style.display = "none"; // Hide the prompt
+            startTimer(); // Restart the timer
+        }
+
+        window.onload = function() {
+            startTimer();
+        };
     </script>
 </head>
 <body>
     <h1>Time Remaining</h1>
     <div id="timer">5m 0s</div>
+    <div id="surveyPrompt" style="display:none;">
+        <p>Please complete the survey:</p>
+        <button onclick="openSurvey()">Go to Survey</button>
+    </div>
 </body>
 </html>
